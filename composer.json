@@ -13,7 +13,7 @@
   	"slim"
   ],
   "type": "library",
-  "homepage": "https://github.com/proemergotech/correlate-php-core",
+  "homepage": "https://github.com/sebabentancurt/correlate-php-core",
   "license": "MIT",
   "authors": [
     {
@@ -31,8 +31,6 @@
   	}
   ],
 	"require": {
-    "proemergotech/correlate-php-core": "dev-master",
-    "proemergotech/correlate-php-monolog": "dev-master",
     "illuminate/http": "^5.4",
     "psr/log": "1.*",
     "monolog/monolog": "1.*"
@@ -45,12 +43,13 @@
   },
   "autoload": {
     "psr-4": {
-      "ProEmergotech\\Correlate\\Laravel\\": "src/"
+      "Sebabentancurt\\Correlate\\Laravel\\": "src/Laravel",
+      "Sebabentancurt\\Correlate\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "ProEmergotech\\Correlate\\Laravel\\Tests\\": "tests/"
+      "Sebabentancurt\\Correlate\\Laravel\\Tests\\": "tests/"
     }
   },
   "minimum-stability": "dev",

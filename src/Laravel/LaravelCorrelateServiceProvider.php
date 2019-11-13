@@ -1,6 +1,6 @@
 <?php
 
-namespace ProEmergotech\Correlate\Laravel;
+namespace Sebabentancurt\Correlate\Laravel;
 
 class LaravelCorrelateServiceProvider extends LumenCorrelateServiceProvider
 {
