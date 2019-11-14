@@ -1,5 +1,5 @@
 {
-  "name": "proemergotech/correlate-php-laravel",
+  "name": "amp/correlate-php-laravel",
   "description": "Middleware to handle incoming correlation id header for Laravel and Lumen",
   "keywords": [
   	"microservice",
@@ -17,18 +17,9 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "ProEmergotech Kft",
-      "email": "support@proemergotech.com",
-      "homepage": "http://www.proemergotech.com/"
-    },
-    {
-      "name": "Soma Szelpal",
-      "email": "soma.szelpal@proemergotech.com"
-    },
-    {
-	    "name": "Soma Szelpal",
-	    "email": "szelpalsoma@gmail.com"
-  	}
+      "name": "Sebastian Bentancurt",
+      "email": "sebabentancurt@antel.net.uy"
+    }
   ],
 	"require": {
     "illuminate/http": "^5.4",
@@ -39,17 +30,18 @@
     "fzaninotto/faker": "~1.4",
     "phpunit/phpunit": "^5.0",
     "mockery/mockery": "~0.9",
-    "squizlabs/php_codesniffer": "^2.8"
+    "squizlabs/php_codesniffer": "^2.8",
+    "webpatser/laravel-uuid": "^3.0"
   },
   "autoload": {
     "psr-4": {
-      "Sebabentancurt\\Correlate\\Laravel\\": "src/Laravel",
-      "Sebabentancurt\\Correlate\\": "src"
+      "Amp\\Correlate\\Laravel\\": "src/Laravel",
+      "Amp\\Correlate\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Sebabentancurt\\Correlate\\Laravel\\Tests\\": "tests/"
+      "Amp\\Correlate\\Laravel\\Tests\\": "tests/"
     }
   },
   "minimum-stability": "dev",

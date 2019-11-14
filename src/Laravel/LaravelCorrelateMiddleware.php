@@ -1,13 +1,13 @@
 <?php
 
-namespace Sebabentancurt\Correlate\Laravel;
+namespace Amp\Correlate\Laravel;
 
 use Closure;
 use Illuminate\Http\Request;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
-use Sebabentancurt\Correlate\Monolog\CorrelateProcessor;
-use Sebabentancurt\Correlate\Correlate;
+use Amp\Correlate\Monolog\CorrelateProcessor;
+use Amp\Correlate\Correlate;
 
 class LaravelCorrelateMiddleware
 {

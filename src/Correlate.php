@@ -4,7 +4,7 @@
  * @author Soma Szelpal <szelpalsoma@gmail.com>
  * @license MIT
  */
-namespace Sebabentancurt\Correlate;
+namespace Amp\Correlate;
 
 use Closure;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Sebabentancurt\Correlate\Laravel;
+namespace Amp\Correlate\Laravel;
 
 class LaravelCorrelateServiceProvider extends LumenCorrelateServiceProvider
 {

@@ -5,12 +5,12 @@
  * @license MIT
  */
 
-namespace Sebabentancurt\Correlate;
+namespace Amp\Correlate;
 
 /**
  * Adds request identifier into records
  *
- * @package Sebabentancurt\Correlate
+ * @package Amp\Correlate
  */
 class CorrelateProcessor
 {
