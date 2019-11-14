@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
-use Amp\Correlate\Monolog\CorrelateProcessor;
+use Amp\Correlate\CorrelateProcessor;
 use Amp\Correlate\Correlate;
 
 class LaravelCorrelateMiddleware
