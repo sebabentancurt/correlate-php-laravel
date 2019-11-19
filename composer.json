@@ -25,7 +25,8 @@
     "illuminate/http": "^5.4",
     "psr/log": "1.*",
     "monolog/monolog": "1.*",
-    "webpatser/laravel-uuid": "^3.0"
+    "webpatser/laravel-uuid": "^3.0",
+    "antel/ampclientlib": "~1.0.92"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",
@@ -42,6 +43,12 @@
   "autoload-dev": {
     "psr-4": {
       "Amp\\Correlate\\Laravel\\Tests\\": "tests/"
+    }
+  },
+  "repositories": {
+    "satis": {
+        "type": "composer",
+        "url": "http://satis.antel.net.uy:8080"
     }
   },
   "minimum-stability": "dev",
