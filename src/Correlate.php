@@ -86,7 +86,7 @@ class Correlate
      */
     public static function getGeneratorFunc(): Closure
     {
-        if ((self::$generatorFunc instanceof Closure)) {
+        if (self::$generatorFunc instanceof Closure) {
             return self::$generatorFunc;
         }
 
