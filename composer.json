@@ -24,7 +24,7 @@
 	"require": {
     "illuminate/http": ">=5.4,<=6.9",
     "psr/log": "1.*",
-    "monolog/monolog": "1.*",
+    "monolog/monolog": ">=1.0,<=2.9 ",
     "webpatser/laravel-uuid": "^3.0",
     "antel/ampclientlib": "~1.0.92"
   },
