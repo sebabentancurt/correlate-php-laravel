@@ -7,6 +7,7 @@ use Monolog\Logger;
 use Amp\Correlate\CorrelateProcessor;
 use Amp\Correlate\Correlate;
 use Illuminate\Http\Request;
+use Illuminate\Log\LogManager;
 
 trait LaravelCorrelateTrait
 {
@@ -51,11 +52,14 @@ trait LaravelCorrelateTrait
             $this->request->headers->get(Correlate::getHeaderName())
         );
 
-        if ($this->log instanceof Logger) {
+        if ($this->log instanceof Logger) { //Compatibility Laravel 5.x
             $this->log->pushProcessor($processor);
+        } elseif($this->log instanceof LogManager){ //Compatibility Laravel 6.x
+            $this->log->getLogger()->pushProcessor($processor);
         } elseif (method_exists($this->log, 'getMonolog')) {
             $this->log->getMonolog()->pushProcessor($processor);
         }
+
     }
 
     /**
