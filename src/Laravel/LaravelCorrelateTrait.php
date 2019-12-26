@@ -29,7 +29,7 @@ trait LaravelCorrelateTrait
      */
     public function correlateId(Request $request, string $tracking_id = null)
     {
-        $this->log = \Log::getMonolog();
+        $this->log = resolve('log');
         $this->request = $request;
         $this->tracking_id = $tracking_id;
 
@@ -43,7 +43,7 @@ trait LaravelCorrelateTrait
     private function setCorrelateID()
     {
         if (!$this->request->headers->has(Correlate::getHeaderName())) {
-            $tracking_id =  $this->tracking_id ? $this->tracking_id : (string) Correlate::id();
+            $tracking_id =  $this->tracking_id ? (string) Correlate::id() : $this->tracking_id;
             $this->request->headers->set(Correlate::getHeaderName(), $tracking_id);
         }
 
@@ -53,7 +53,7 @@ trait LaravelCorrelateTrait
         );
 
         if ($this->log instanceof Logger) { //Compatibility Laravel 5.x
-            $this->log->pushProcessor($processor);
+            $this->log->getMonolog()->pushProcessor($processor);
         } elseif($this->log instanceof LogManager){ //Compatibility Laravel 6.x
             $this->log->getLogger()->pushProcessor($processor);
         } elseif (method_exists($this->log, 'getMonolog')) {
