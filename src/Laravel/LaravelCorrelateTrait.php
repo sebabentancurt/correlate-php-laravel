@@ -43,7 +43,7 @@ trait LaravelCorrelateTrait
     private function setCorrelateID()
     {
         if (!$this->request->headers->has(Correlate::getHeaderName())) {
-            $tracking_id =  $this->tracking_id ? (string) Correlate::id() : $this->tracking_id;
+            $tracking_id =  $this->tracking_id ? $this->tracking_id : (string) Correlate::id();
             $this->request->headers->set(Correlate::getHeaderName(), $tracking_id);
         }
 
