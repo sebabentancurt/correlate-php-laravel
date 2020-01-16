@@ -43,7 +43,7 @@ class CorrelateProcessor
     public function __invoke(array $record): array
     {
         if (!empty($this->correlationId)) {
-            $record['context'][$this->paramName] = $this->correlationId;
+            $record['extra'][$this->paramName] = $this->correlationId;
         }
 
         return $record;
