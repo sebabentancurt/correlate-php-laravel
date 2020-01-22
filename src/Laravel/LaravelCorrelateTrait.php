@@ -8,6 +8,7 @@ use Amp\Correlate\CorrelateProcessor;
 use Amp\Correlate\Correlate;
 use Illuminate\Http\Request;
 use Illuminate\Log\LogManager;
+use Illuminate\Support\Facades\Log;
 
 trait LaravelCorrelateTrait
 {
@@ -20,7 +21,7 @@ trait LaravelCorrelateTrait
     private $tracking_id;
 
     /**
-     * Funciona como constructor del Trait
+     * Setea el tracking id a la request
      * 
      * @param Request $request
      * @param string $tracking_id
@@ -33,33 +34,39 @@ trait LaravelCorrelateTrait
         $this->request = $request;
         $this->tracking_id = $tracking_id;
 
+        $this->setCorrelateIdToRequest();
+        $this->setCorrelateIdToLogger();
         $this->installMacrosCorrelateID();
-        $this->setCorrelateID();
     }
 
     /**
      * @return mixed
      */
-    private function setCorrelateID()
+    private function setCorrelateIdToRequest()
     {
-        if (!$this->request->headers->has(Correlate::getHeaderName())) {
-            $tracking_id =  $this->tracking_id ? $this->tracking_id : (string) Correlate::id();
-            $this->request->headers->set(Correlate::getHeaderName(), $tracking_id);
-        }
+        $tracking_id =  $this->tracking_id ? $this->tracking_id : (string) Correlate::id();
+        $this->request->headers->set(Correlate::getHeaderName(), $tracking_id);
+    }
 
+    private function setCorrelateIdToLogger(){
         $processor = new CorrelateProcessor(
             Correlate::getParamName(),
             $this->request->headers->get(Correlate::getHeaderName())
         );
 
         if ($this->log instanceof Logger) { //Compatibility Laravel 5.x
-            $this->log->getMonolog()->pushProcessor($processor);
+            $logger = $this->log;
         } elseif($this->log instanceof LogManager){ //Compatibility Laravel 6.x
-            $this->log->getLogger()->pushProcessor($processor);
+            $logger = $this->log->getLogger();
         } elseif (method_exists($this->log, 'getMonolog')) {
-            $this->log->getMonolog()->pushProcessor($processor);
+            $logger = $this->log->getMonolog();
         }
 
+        while(!empty($logger->getProcessors())){
+            $logger->popProcessor();
+        }
+
+        $logger->pushProcessor($processor);
     }
 
     /**
@@ -67,29 +74,23 @@ trait LaravelCorrelateTrait
      */
     private function installMacrosCorrelateID()
     {
-        if (!$this->request::hasMacro('hasCorrelationId')) {
-            $this->request::macro('hasCorrelationId', function() {
-                if ($this->headers->has(Correlate::getHeaderName())) {
-                    return true;
-                }
-                return false;
-            });
-        }
-
-        if (!$this->request::hasMacro('getCorrelationId')) {
-            $this->request::macro('getCorrelationId', function($default = null) {
-                if ($this->headers->has(Correlate::getHeaderName())) {
-                    return $this->headers->get(Correlate::getHeaderName());
-                }
-                return $default;
-            });
-        }
-
-        if (!$this->request::hasMacro('setCorrelationId')) {
-            $this->request::macro('setCorrelationId', function($cid)  {
-                $this->headers->set(Correlate::getHeaderName(), (string) $cid);
-                return $this;
-            });
-        }
+        $this->request::macro('hasCorrelationId', function() {
+            if ($this->headers->has(Correlate::getHeaderName())) {
+                return true;
+            }
+            return false;
+        });
+    
+        $this->request::macro('getCorrelationId', function($default = null) {
+            if ($this->headers->has(Correlate::getHeaderName())) {
+                return $this->headers->get(Correlate::getHeaderName());
+            }
+            return $default;
+        });
+    
+        $this->request::macro('setCorrelationId', function($cid)  {
+            $this->headers->set(Correlate::getHeaderName(), (string) $cid);
+            return $this;
+        });
     }
 }
